@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Shared/Shared.csproj" />
+  <Project Path="WMS.Application/WMS.Application.csproj" />
+  <Project Path="WMS.Core/WMS.Core.csproj" />
+  <Project Path="WMS.Infrastructure/WMS.Infrastructure.csproj" />
+  <Project Path="WMS.WebAPI/WMS.WebAPI.csproj" />
+  <Project Path="WMS.WebMVC/WMS.WebMVC.csproj" />
+</Solution>
