@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using WMS.Infrastructure.Context;
+using Microsoft.AspNetCore.Identity;
+using WMS.Core.Entities;
+using WMS.Infrastructure.DbInitializar;
 
 namespace WMS.WebMVC
 {
@@ -12,9 +15,20 @@ namespace WMS.WebMVC
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(3);
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.SignIn.RequireConfirmedAccount = false;
+                options.User.RequireUniqueEmail = true;
 
+            }).AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddScoped<IDbInitializar,DbInitializar >();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -28,15 +42,32 @@ namespace WMS.WebMVC
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            SeedDb();
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MapRazorPages();
 
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{Area=Admin}/{controller=User}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();
+
+            void SeedDb()
+            {
+
+                using (var scope = app.Services.CreateScope())
+                {
+
+                    var dbInitizer = scope.ServiceProvider.GetRequiredService<IDbInitializar>();
+
+                    dbInitizer.Initialize();
+                }
+            }
+
         }
     }
 }
