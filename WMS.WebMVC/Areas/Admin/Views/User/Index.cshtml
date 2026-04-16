@@ -1,1 +1,83 @@
-﻿<h2>Hello</h2>
+﻿
+@model IEnumerable<ApplicationUser>
+
+@{
+    ViewBag.PageTitle = "إدارة المستخدمين";
+    ViewBag.CardTitle = "كل المستخدمين";
+}
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>البريد الالكتروني</th>
+                                <th>رقم الهاتف </th>
+                                <th>الاجراءات </th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.UserName
+                                     </td>
+                                    <td>
+                                        @item.Email
+                                    </td>
+                                    <td>
+                                        @item.PhoneNumber
+                                    </td>
+                                    <td>
+                                        @if (item.LockoutEnd == null || item.LockoutEnd < DateTime.Now)
+                                        {
+
+                                            <a asp-action="LockUnlock" asp-controller="User" asp-route-id="@item.Id" class="btn btn-dark"><i class="nav-icon 	fas fa-lock"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="LockUnlock" asp-controller="User" asp-route-id="@item.Id" class="btn btn-success"><i class="nav-icon 	fas fa-lock-open"></i></a>
+
+                                        }
+                                        <a asp-action="Update" asp-controller="User" asp-route-id="@item.Id" class="btn btn-warning"><i class="nav-icon 	fas fa-edit"></i></a>
+                          
+                                    </td>
+                                    
+                                </tr>
+
+
+                            }                                              
+                        </tbody>
+                       
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+@section Scripts {
+    <script>
+        $('#example1').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/ar.json"
+            }
+        });
+    </script>
+}

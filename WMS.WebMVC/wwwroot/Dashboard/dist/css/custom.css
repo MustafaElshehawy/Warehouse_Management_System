@@ -1,6 +1,30 @@
 *{
     direction: rtl !important;
 }
+
+body {
+    font-family: 'Almarai', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6, .nav-link, .btn, .card-title {
+    font-family: 'Almarai', sans-serif !important;
+    font-weight: 600;
+}
+
+.btn-custom {
+    background-color: #042C63 !important;
+    border-color: #042C63 !important;
+    color: #ffffff !important; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    transition: all 0.3s ease; 
+}
+
+.btn-custom:hover {
+    background-color: #03214a !important;
+    border-color: #03214a !important;
+    color: #ffffff !important;
+}
+
 .layout-fixed .main-sidebar {
     right: 0;
 }

@@ -1,8 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using WMS.Infrastructure.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using WMS.Core.Entities;
+using WMS.Core.Repositories;
+using WMS.Infrastructure.Context;
 using WMS.Infrastructure.DbInitializar;
+using WMS.Infrastructure.Implementations;
 
 namespace WMS.WebMVC
 {
@@ -21,6 +23,7 @@ namespace WMS.WebMVC
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
+                options.User.AllowedUserNameCharacters = "abc...xyzABC...XYZ0123456789-._@+ أبتثجحخدذرزسشصضطظعغفقكلمنهوي";
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(3);
                 options.Lockout.MaxFailedAccessAttempts = 3;
                 options.SignIn.RequireConfirmedAccount = false;
@@ -29,6 +32,9 @@ namespace WMS.WebMVC
             }).AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddScoped<IDbInitializar,DbInitializar >();
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

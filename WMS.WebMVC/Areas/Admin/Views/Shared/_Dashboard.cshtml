@@ -13,14 +13,17 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="~/Dashboard/dist/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Google Font:Cairo -->
+    <!--<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">-->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap 4 RTL -->
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css">
     <!-- Custom style for RTL -->
     <link rel="stylesheet" href="~/Dashboard/dist/css/custom.css">
-
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Dashboard/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <!-- Toaster-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
@@ -72,13 +75,13 @@
                                 <li class="nav-item">
                                     <a asp-controller="User" asp-action="Index" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>All User</p>
+                                        <p>عرض كل المستخدمين</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a asp-controller="User" asp-action="Create" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add User</p>
+                                        <p>إضافة مستخدم جديد</p>
                                     </a>
                                 </li>
                             </ul>
@@ -161,7 +164,7 @@
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
+                        <div class="col-12 d-flex justify-content-center">
                             <h1>@ViewBag.PageTitle</h1>
                         </div>
                         <div class=" float-sm-right">
@@ -176,16 +179,14 @@
 
                 <!-- Default box -->
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">@ViewBag.CardTitle</h3>
+                    <div class="card-header d-flex">
+                        <h3 class="card-title order-2">@ViewBag.CardTitle</h3>
 
-                        <div class="card-tools">
+                        <div class="card-tools order-1">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                                <i class="fas fa-times"></i>
-                            </button>
+                            
                         </div>
                     </div>
                     <div class="card-body">
@@ -224,6 +225,9 @@
     <script src="~/Dashboard/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="~/Dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/Dashboard/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Dashboard/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <!-- AdminLTE App -->
     <script src="~/Dashboard/dist/js/adminlte.min.js"></script>
     

@@ -1,0 +1,47 @@
+﻿@model UserVM
+@{
+    ViewBag.PageTitle = "إدارة المستخدمين";
+    ViewBag.CardTitle = "إضافة مستخدم جديد ";
+}
+
+<form asp-action="Create" method="post">
+
+    <div class="form-group">
+        <label asp-for="User.UserName"><i class="nav-icon 	fas fa-user ml-2"></i>اسم المستخدم</label>
+        <input asp-for="User.UserName" class="form-control" aria-required="true" />
+        <span asp-validation-for="User.UserName" class="text-danger"></span>
+    </div>
+<div class="form-group">
+        <label asp-for="User.Email"><i class="nav-icon 	fas fa-envelope ml-2"></i>(أساسي في عملية تسجيل الدخول)البريد الالكتروني</label>
+    <input asp-for="User.Email" class="form-control" autocomplete="username" aria-required="true" />
+    <span asp-validation-for="User.Email" class="text-danger"></span>
+</div>
+    <div class="form-group">
+        <label asp-for="User.PhoneNumber">
+            <i class="fas fa-phone ml-2"></i> رقم الهاتف
+        </label>
+        <input asp-for="User.PhoneNumber" class="form-control" placeholder="01xxxxxxxxx" />
+        <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+    </div>
+<div class="form-group">
+        <label asp-for="Password"><i class="nav-icon 	fas fa-lock ml-2"></i>كلمة المرور</label>
+    <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
+    <span asp-validation-for="Password" class="text-danger"></span>
+</div>
+<div class="form-group ">
+    <label asp-for="ConfirmPassword"><i class="nav-icon 	fas fa-check-double ml-2"></i>تأكيد كلة المرور</label>
+    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+</div>
+<div class="mb-3">
+        <label class="form-label fw-bold"><i class="nav-icon fas fa-shield-alt ml-2"></i>إضافة صلاحية المستخدم </label>
+    <select asp-for="Role" class="custom-select" asp-items="Model.RoleList">
+        <option disabled selected>-- إختر صلاحية --</option>
+    </select>
+</div>
+</br>
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="form-group ">
+    <button type="submit" class="btn btn-custom  w-100 py-2   shadow-sm">حفظ المستخدم</button>
+</div>
+</form>
