@@ -10,12 +10,14 @@ namespace WMS.Infrastructure.Implementations
     {
         private readonly ApplicationDbContext _context;
         public IUserRepository User { get; private set; }
+        public ICategoryRepository Category { get; private set; }
 
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             User = new UserRepository(context);
+            Category=new CategoryRepository(context);
         }
 
 

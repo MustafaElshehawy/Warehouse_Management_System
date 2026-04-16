@@ -53,7 +53,7 @@ namespace WMS.Infrastructure.DbInitializar
                 _userManager.CreateAsync(new ApplicationUser
 
                 { 
-                    UserName="Admin@gmail.com",
+                    UserName="MostafaAd13",
                     Email = "Admin@gmail.com",
                     PhoneNumber="012345678",
                     EmailConfirmed = true
