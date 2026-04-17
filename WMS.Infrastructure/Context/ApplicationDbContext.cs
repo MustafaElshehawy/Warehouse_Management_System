@@ -13,10 +13,43 @@ namespace WMS.Infrastructure.Context
         { 
             
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ProductUnit>()
+                .HasOne(pu => pu.ChildUnit)
+                .WithMany()
+                .HasForeignKey(pu => pu.ChildUnitId)
+                .OnDelete(DeleteBehavior.Restrict); 
+
+
+            modelBuilder.Entity<ProductUnit>()
+                .HasOne(pu => pu.ParentUnit)
+                .WithMany()
+                .HasForeignKey(pu => pu.ParentUnitId)
+                .OnDelete(DeleteBehavior.Restrict); 
+
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Unit)
+                .WithMany()
+                .HasForeignKey(p => p.SmallestUnitId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
 
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public DbSet<Unit> Units { get; set; }
+
+        public DbSet<Image> Images { get; set; }
+
+        public DbSet<Product>Products { get; set; }
+
+        public DbSet<ProductUnit> ProductUnits { get; set; }
 
     }
 
