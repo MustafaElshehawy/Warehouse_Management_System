@@ -368,3 +368,4 @@ FodyWeavers.xsd
 **/appsettings.json
 **/appsettings.Development.json
 **/appsettings.Production.json
+/WMS.WebMVC/wwwroot/Images/Products/Gallery
