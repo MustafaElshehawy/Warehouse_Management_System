@@ -1,12 +1,13 @@
 ﻿@model ProductUnitCreateVM
 @{
     ViewBag.PageTitle = "إدارة وحدات المنتجات";
-    ViewBag.CardTitle = "إضافة تفاصيل وحدة لمنتج";
+    ViewBag.CardTitle = "تعديل تفاصيل وحدة لمنتج";
 }
 <div class="container mt-3">
-    <form asp-action="Create" method="post">
+    <form asp-action="Update" method="post">
         <div class="row">
             <div class="col-md-6 mb-3">
+                <input type="hidden" asp-for="ProductUnit.Id" />
                 <label asp-for="ProductUnit.ProductId" class="form-label fw-bold">إختر المنتج</label>
                 <select id="productId" asp-for="ProductUnit.ProductId" class="custom-select" asp-items="Model.ProductList">
                     <option disabled selected>-- اختر المنتج --</option>
@@ -40,7 +41,7 @@
 
             <div class="col-md-4 mb-3">
                 <label asp-for="ProductUnit.ParentUnitPrice" class="form-label fw-bold">سعر الوحدة الكبرى</label>
-                <input asp-for="ProductUnit.ParentUnitPrice" class="form-control" type="number"  min="1" placeholder="0.00" />
+                <input asp-for="ProductUnit.ParentUnitPrice" class="form-control" type="number" min="1" placeholder="0.00" />
                 <span asp-validation-for="ProductUnit.ParentUnitPrice" class="text-danger"></span>
             </div>
         </div>
@@ -100,7 +101,7 @@
                 calculateTotal();
             });
 
-            // دالة الحساب 
+            // دالة الحساب
             function calculateTotal() {
                 var factor = $('#ProductUnit_UnitFactor').val() || 0;
                 if (factor > 0 && currentChildPrice > 0) {
@@ -109,6 +110,10 @@
                     $('#ProductUnit_ParentUnitPrice').val(result.toFixed(2));
                 }
             }
+            //  يجيب السعر لو إحنا في صفحة تعديل المنتج مختار فعلا
+                if ($('#productId').val()) {
+            $('#productId').trigger('change');
+        }
         });
     </script>
 }

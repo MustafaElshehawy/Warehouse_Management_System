@@ -10,7 +10,10 @@ namespace WMS.Application.ViewModel
     public class ProductUnitCreateVM
     {
         public ProductUnit ProductUnit { get; set; }
-
+        [ValidateNever]
+        public string CreatedByName { get; set; }
+        [ValidateNever]
+        public string ModifiedByName { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> ProductList { get; set; }
         [ValidateNever]
