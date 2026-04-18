@@ -24,6 +24,24 @@ namespace WMS.WebMVC.Areas.Admin.Controllers
             return View(productUnits);
         }
 
+        [HttpGet]
+        public IActionResult GetAvailableChildUnits(int productId)
+        {
+            // 1. هات المنتج عشان نعرف أصغر وحدة بتاعته
+            var product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == productId, IncludeWord: "Unit");
+
+            // 2. هات الوحدات اللي اتعرفت كـ Parent للمنتج ده قبل كدة
+            var existingUnits = _unitOfWork.ProductUnit.GetAll(u => u.ProductId == productId, IncludeWord: "ParentUnit")
+                                                        .Select(u => u.ParentUnit)
+                                                        .ToList();
+
+            // 3. نجمع أصغر وحدة مع الوحدات الموجودة
+            var allOptions = new List<Unit> { product.Unit };
+            allOptions.AddRange(existingUnits);
+
+            // نرجع البيانات كـ JSON
+            return Json(allOptions.Distinct().Select(u => new { id = u.Id, name = u.Name }));
+        }
         
 
         [HttpGet]

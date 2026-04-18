@@ -65,5 +65,28 @@
                 url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/ar.json"
             },
         });
+            $(document).ready(function () {
+            $('#productId').change(function () {
+                var selectedProductId = $(this).val();
+                var childUnitSelect = $('#childUnitId');
+
+                childUnitSelect.empty();
+                childUnitSelect.append('<option disabled selected>-- جاري تحميل الوحدات... --</option>');
+
+                if (selectedProductId) {
+                    $.ajax({
+                        url: '/Admin/ProductUnit/GetAvailableChildUnits', // My Action URL
+                        data: { productId: selectedProductId },
+                        success: function (data) {
+                            childUnitSelect.empty();
+                            childUnitSelect.append('<option disabled selected>-- اختر الوحدة الصغرى --</option>');
+                            $.each(data, function (i, unit) {
+                                childUnitSelect.append('<option value="' + unit.id + '">' + unit.name + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+        });
     </script>
 }
