@@ -9,6 +9,8 @@ namespace WMS.Core.Repositories
         //hero repositories Accessors
         IUserRepository User { get; }
         ICategoryRepository Category { get; }
+
+        IUnitRepository Unit { get; }
         int Complete();
     }
 }
