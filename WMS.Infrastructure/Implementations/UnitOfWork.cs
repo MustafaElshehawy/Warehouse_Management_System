@@ -13,12 +13,18 @@ namespace WMS.Infrastructure.Implementations
         public ICategoryRepository Category { get; private set; }
 
         public IUnitRepository Unit { get; private set; }
+
+        public IProductUnitRepository ProductUnit { get; private set; }
+
+        public IProductRepository Product { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             User = new UserRepository(context);
             Category=new CategoryRepository(context);
             Unit = new UnitRepository(context);
+            ProductUnit=new ProductUnitRepository(context);
+            Product = new ProductRepository(context);
         }
 
 

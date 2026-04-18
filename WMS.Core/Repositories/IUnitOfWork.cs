@@ -11,6 +11,10 @@ namespace WMS.Core.Repositories
         ICategoryRepository Category { get; }
 
         IUnitRepository Unit { get; }
+
+        IProductUnitRepository ProductUnit { get; }
+
+        IProductRepository Product { get; }
         int Complete();
     }
 }

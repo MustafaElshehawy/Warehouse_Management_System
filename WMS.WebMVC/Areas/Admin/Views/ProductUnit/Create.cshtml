@@ -1,0 +1,69 @@
+﻿@model ProductUnitCreateVM
+@{
+    ViewBag.PageTitle = "إدارة وحدات المنتجات";
+    ViewBag.CardTitle = "إضافة تفاصيل وحدة لمنتج";
+}
+<div class="container mt-3">
+    <form asp-action="Create" method="post">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="ProductUnit.ProductId" class="form-label fw-bold">إختر المنتج</label>
+                <select id="productId" asp-for="ProductUnit.ProductId" class="custom-select" asp-items="Model.ProductList">
+                    <option disabled selected>-- اختر المنتج --</option>
+                </select>
+                <span asp-validation-for="ProductUnit.ProductId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="ProductUnit.ChildUnitId" class="form-label fw-bold">الوحدة الصغرى</label>
+                <select id="childUnitId" asp-for="ProductUnit.ChildUnitId" class="custom-select" asp-items="Model.ChildUnitList">
+                    <option disabled selected>-- اختر الوحدة الصغرى --</option>
+                </select>
+                <span asp-validation-for="ProductUnit.ChildUnitId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label asp-for="ProductUnit.ParentUnitId" class="form-label fw-bold">الوحدة الكبرى</label>
+                <select asp-for="ProductUnit.ParentUnitId" class="custom-select" asp-items="Model.ParentUnitList">
+                    <option disabled selected>-- اختر الوحدة الكبرى --</option>
+                </select>
+                <span asp-validation-for="ProductUnit.ParentUnitId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label asp-for="ProductUnit.UnitFactor" class="form-label fw-bold">عدد القطع داخل الكبرى</label>
+                <input asp-for="ProductUnit.UnitFactor" class="form-control" type="number" step="1" min="1" placeholder="مثلاً: 12" />
+                <span asp-validation-for="ProductUnit.UnitFactor" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label asp-for="ProductUnit.ParentUnitPrice" class="form-label fw-bold">سعر الوحدة الكبرى</label>
+                <input asp-for="ProductUnit.ParentUnitPrice" class="form-control" type="number"  min="1" placeholder="0.00" />
+                <span asp-validation-for="ProductUnit.ParentUnitPrice" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-custom px-5">إضافة</button>
+            <a asp-action="Index" class="btn btn-warning">الرجوع للقائمة</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $('#example1').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/ar.json"
+            },
+        });
+    </script>
+}

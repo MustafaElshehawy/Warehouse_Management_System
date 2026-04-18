@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ProductUnit>
+
+@{
+    ViewBag.PageTitle = "إدارة الوحدات الفرعية";
+    ViewBag.CardTitle = "كل الوحدات الفرعية";
+}
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped ">
+                        <thead>
+                            <tr>
+                                <th>المنتج</th>
+                                <th>الوحدة الكبيره</th>
+                                <th>الوحدة الصغيره</th>
+                                <th>الكمية</th>
+                                <th>وقت الإضافة </th>
+                                <th>الإضافة بواسطة </th>
+                                <th>وقت التعديل </th>
+                                <th>التعديل بواسطة </th>
+                                <th>الإجراءات  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Product.Name
+                                    </td>
+                                    <td>
+                                        @item.ParentUnit.Name
+                                    </td>
+                                    <td>
+                                        @item.ChildUnit.Name
+                                    </td>
+                                    <td>
+                                        @item.UnitFactor
+                                    </td>
+                                    <td>
+                                        @item.CreatedAt
+                                    </td>
+                                    <td>
+                                        @item.CreatedBy
+                                    </td>
+                                    <td>
+                                        @item.ModifiedAt
+                                    </td>
+                                    <td>
+                                        @item.ModifiedBy
+                                    </td>
+                                    <td>
+
+                                        <a asp-action="Update" asp-controller="Unit" asp-route-id="@item.Id" class="btn btn-warning"><i class="nav-icon 	fas fa-edit"></i></a>
+                                        <a asp-action="Delete" asp-controller="Unit" asp-route-id="@item.Id" class="btn btn-danger"><i class="nav-icon 	fas fa-trash"></i></a>
+                                    </td>
+
+                                </tr>
+
+
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+@section Scripts {
+    <script>
+        $('#example1').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/ar.json"
+            },
+        });
+    </script>
+}
