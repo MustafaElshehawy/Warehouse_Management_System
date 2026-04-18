@@ -15,6 +15,8 @@ namespace WMS.Core.Repositories
         IProductUnitRepository ProductUnit { get; }
 
         IProductRepository Product { get; }
+
+        IImageRepository Image { get; }
         int Complete();
     }
 }

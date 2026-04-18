@@ -5,8 +5,8 @@ using WMS.Core.Entities;
 
 namespace WMS.Core.Repositories
 {
-    public interface IProductRepository:IGenericRepository<Product>
+    public interface IImageRepository:IGenericRepository<Image>
     {
-        void Update(Product Product, string userId);
+        void Update(Image Image);
     }
 }

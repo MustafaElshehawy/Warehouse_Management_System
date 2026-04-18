@@ -17,6 +17,8 @@ namespace WMS.Infrastructure.Implementations
         public IProductUnitRepository ProductUnit { get; private set; }
 
         public IProductRepository Product { get; private set; }
+
+        public IImageRepository Image { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -25,6 +27,7 @@ namespace WMS.Infrastructure.Implementations
             Unit = new UnitRepository(context);
             ProductUnit=new ProductUnitRepository(context);
             Product = new ProductRepository(context);
+            Image = new ImageRepository(context);
         }
 
 

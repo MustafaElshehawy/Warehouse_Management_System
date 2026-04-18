@@ -14,5 +14,24 @@ namespace WMS.Infrastructure.Implementations
         {
             _context = context; 
         }
+        public void Update(Product obj, string userId)
+        {
+            var objFromDb = _context.Products.FirstOrDefault(u => u.Id == obj.Id);
+            if (objFromDb != null)
+            {
+                objFromDb.Name = obj.Name;
+                objFromDb.Description = obj.Description;
+                objFromDb.CategoryId = obj.CategoryId;
+                objFromDb.CostPrice = obj.CostPrice;
+                objFromDb.SellingPrice = obj.SellingPrice;
+                objFromDb.SmallestUnitId = obj.SmallestUnitId;
+
+                
+                objFromDb.ModifiedAt = DateTime.Now;
+                
+                objFromDb.ModifiedBy = userId;
+                
+            }
+        }
     }
 }

@@ -1,0 +1,111 @@
+﻿@model ProductVM
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+                $(document).ready(function () {
+            $('#galleryfiles').on('change', function (e) {
+                var files = e.target.files;
+                var label = $('#file-label-name');
+                var display = $('#file-list-display');
+
+                display.empty(); // مسح القائمة القديمة
+
+                if (files.length > 0) {
+                    // تحديث نص الـ Label الأساسي
+                    label.text(files.length + " ملفات مختارة");
+
+                    // إنشاء قائمة بأسماء الملفات تحت الـ Input
+                    var fileNames = [];
+                    for (var i = 0; i < files.length; i++) {
+                        fileNames.push('<span class="badge badge-success mr-1"><i class="fas fa-image"></i> ' + files[i].name + '</span>');
+                    }
+                    display.html(fileNames.join(' '));
+                } else {
+                    label.text("اختر الصور...");
+                }
+            });
+        });
+    </script>
+}
+<div class="container mt-3">
+    <form asp-action="Update" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Product.Id" />
+        <input type="hidden" asp-for="Product.CreatedBy" />
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Product.Name" class="form-label fw-bold">اسم المنتج</label>
+                <input asp-for="Product.Name" class="form-control" />
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Product.CategoryId" class="form-label fw-bold">التصنيف</label>
+                <select asp-for="Product.CategoryId" class="custom-select" asp-items="Model.CategoryList"></select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Description" class="form-label fw-bold">الوصف</label>
+            <textarea asp-for="Product.Description" class="form-control" rows="2" placeholder="أدخل وصفاً بسيطاً للمنتج..."></textarea>
+            <span asp-validation-for="Product.Description" class="text-danger"></span>
+        </div>
+
+        @if (Model.Product.Images != null && Model.Product.Images.Any())
+        {
+            <div class="mb-3">
+                <label class="form-label fw-bold">الصور الحالية:</label>
+                <div class="d-flex flex-wrap border p-2 bg-light">
+                    @foreach (var img in Model.Product.Images)
+                    {
+                        <div class="text-center m-2">
+                            <img src="~/@img.ImageUrl" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;" />
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">إضافة صور جديدة (سيتم إضافتها للصور الحالية)</label>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" name="files" id="galleryfiles" class="custom-file-input" multiple>
+                    <label class="custom-file-label" id="file-label-name" for="galleryfiles">اختر لزيادة الصور...</label>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text bg-dark text-white">رفع</span>
+                </div>
+            </div>
+            <div id="file-list-display" class="mt-2 text-muted small"></div>
+        </div>
+
+       
+        <div class="row">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Product.CostPrice" class="form-label fw-bold">سعر التكلفة</label>
+                    <input asp-for="Product.CostPrice" class="form-control" type="number" step="any" min="0" placeholder="0.00" />
+                    <span asp-validation-for="Product.CostPrice" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Product.SellingPrice" class="form-label fw-bold">سعر البيع</label>
+                    <input asp-for="Product.SellingPrice" class="form-control" type="number" step="any" min="0" placeholder="0.00" />
+                    <span asp-validation-for="Product.SellingPrice" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Product.SmallestUnitId" class="form-label fw-bold">أصغر وحدة قياس</label>
+                    <select asp-for="Product.SmallestUnitId" class="custom-select" asp-items="Model.UnitList">
+                        <option disabled selected>-- اختر الوحدة الأساسية --</option>
+                    </select>
+                    <span asp-validation-for="Product.SmallestUnitId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 mb-5">
+            <button type="submit" class="btn btn-custom px-5">حفظ التعديلات</button>
+            <a asp-action="Index" class="btn btn-warning">رجوع</a>
+        </div>
+    </form>
+</div>

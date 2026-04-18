@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ProductVM>
+
+@{
+    ViewBag.PageTitle = "إدارة المنتاجات";
+    ViewBag.CardTitle = "كل المنتاجات";
+}
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped ">
+                        <thead>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>الوصف</th>
+                                <th>التصنيف</th>
+                                <th>سعر البيع</th>
+                                <th>سعر التكلفة </th>
+                                <th>الوحدة </th>
+                                <th>الإضافة بواسطة </th>
+                                <th>وقت التعديل </th>
+                                <th>التعديل بواسطة </th>
+                                <th>الإجراءات  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Product.Name
+                                    </td>
+                                    <td>
+                                        @item.Product.Description
+                                    </td>
+                                    <td>
+                                        @item.CategorybyName
+                                    </td>
+                                    <td>
+                                        @item.Product.SellingPrice
+                                    </td>
+                                    <td>
+                                        @item.Product.CostPrice
+                                    </td>
+                                    <td>
+                                        @item.UnitByName
+                                    </td>
+                                    <td>
+                                        @item.CreatedByName
+                                    </td>
+                                    <td>
+                                        @item.Product.ModifiedAt
+                                    </td>
+                                    <td>
+                                        @item.ModifiedByName
+                                    </td>
+                                    <td>
+                                        <a asp-action="Update" asp-controller="Product" asp-route-id="@item.Product.Id" class="btn btn-warning"><i class="nav-icon 	fas fa-edit"> تعديل</i></a>
+                                    </td>
+
+                                </tr>
+
+
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+@section Scripts {
+    <script>
+        $('#example1').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/ar.json"
+            },
+        });
+    </script>
+}
