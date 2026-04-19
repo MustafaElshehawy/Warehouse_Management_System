@@ -21,8 +21,8 @@
                                 <th>سعر</th>
                                 <th>وقت الإضافة </th>
                                 <th>الإضافة بواسطة </th>
-                                <th>وقت التعديل </th>
-                                <th>التعديل بواسطة </th>
+                                @* <th>وقت التعديل </th>
+                                <th>التعديل بواسطة </th> *@
                                 @* <th>الإجراءات  </th> *@
                             </tr>
                         </thead>
@@ -51,12 +51,12 @@
                                     <td>
                                         @item.CreatedByName
                                     </td>
-                                    <td>
+                                    @* <td>
                                         @item.ProductUnit.ModifiedAt
                                     </td>
                                     <td>
                                         @item.ModifiedByName
-                                    </td>
+                                    </td> *@
                                     @* <td>
 
                                         <a asp-action="Update" asp-controller="ProductUnit" asp-route-id="@item.ProductUnit.Id" class="btn btn-warning"><i class="nav-icon 	fas fa-edit">تعديل</i></a>

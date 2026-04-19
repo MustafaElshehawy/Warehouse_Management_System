@@ -11,6 +11,7 @@
 
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <div class="table-responsive-cards">
                     <table id="example1" class="table table-bordered table-striped ">
                         <thead>
                             <tr>
@@ -30,34 +31,34 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>
+                                    <td data-label ="الاسم">
                                         @item.Product.Name
                                     </td>
-                                    <td>
+                                    <td data-label="الوصف">
                                         @item.Product.Description
                                     </td>
-                                    <td>
+                                    <td data-label="التصنيف">
                                         @item.CategorybyName
                                     </td>
-                                    <td>
+                                    <td data-label="سعر البيع">
                                         @item.Product.SellingPrice
                                     </td>
-                                    <td>
+                                    <td data-label="سعر التكلفة">
                                         @item.Product.CostPrice
                                     </td>
-                                    <td>
+                                    <td data-label="الوحدة">
                                         @item.UnitByName
                                     </td>
-                                    <td>
+                                    <td data-label="الإضافة بواسطة">
                                         @item.CreatedByName
                                     </td>
-                                    <td>
+                                    <td data-label="وقت التعديل">
                                         @item.Product.ModifiedAt
                                     </td>
-                                    <td>
+                                    <td data-label="التعديل بواسطة">
                                         @item.ModifiedByName
                                     </td>
-                                    <td>
+                                    <td data-label="الإجراءات">
                                         <a asp-action="Update" asp-controller="Product" asp-route-id="@item.Product.Id" class="btn btn-warning"><i class="nav-icon 	fas fa-edit"> تعديل</i></a>
                                     </td>
 
@@ -68,6 +69,7 @@
                         </tbody>
 
                     </table>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>

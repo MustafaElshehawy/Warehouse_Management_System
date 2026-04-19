@@ -6,18 +6,28 @@
     <title>AdminLTE 3 | Blank Page</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/Dashboard/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- overlayScrollbars -->
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="~/Dashboard/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/Dashboard/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/Dashboard/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
     <link rel="stylesheet" href="~/Dashboard/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/Dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Google Font:Cairo -->
     <!--<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">-->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">-->
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
-
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/Dashboard/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/Dashboard/plugins/summernote/summernote-bs4.css">
     <!-- Bootstrap 4 RTL -->
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css">
     <!-- Custom style for RTL -->
@@ -27,22 +37,29 @@
     <!-- Toaster-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-rtl">
+<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed layout-rtl">
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
-      
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+
+            </ul>
+        </nav>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:#042C63">
-           
+          
 
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image" >
-                        <img src="~/Dashboard/dist/img/user2-160x160.png" class="img-circle elevation-2" style="width:35px ;height:35px" alt="User Image">
+                <div class="user-panel mt-3 pb-3 mb-3 mr-3 d-flex">
+                        <div class="image mt-1">
+                        <img src="~/Dashboard/dist/img/user2-160x160.png" class="img-circle elevation-2" style="width:25px ;height:25px" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">Elshehawy Solutions</a>
@@ -220,6 +237,8 @@
             </div>
             <!-- /.sidebar -->
         </aside>
+        
+    
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -286,13 +305,66 @@
     <!-- ./wrapper -->
     <!-- jQuery -->
     <script src="~/Dashboard/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="~/Dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="~/Dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="~/Dashboard/dist/js/adminlte.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/Dashboard/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+                              $(document).ready(function () {
+                    // 1. تفعيل زر المنيو بشكل صريح
+                    $('[data-widget="pushmenu"]').on('click', function (e) {
+                        e.preventDefault();
+                    });
+
+                    // 2. وظيفة إغلاق السايد بار عند الضغط على اللينكات (للموبايل فقط)
+                    function handleSidebarOnMobile() {
+                        if ($(window).width() < 768) {
+                            // نستخدم 'body' كمرجع لأن AdminLTE بيعتمد على الكلاسات اللي في الـ body
+                            $('.nav-item > .nav-link').off('click').on('click', function () {
+                                if ($('body').hasClass('sidebar-open')) {
+                                    $('[data-widget="pushmenu"]').PushMenu('collapse');
+                                }
+                            });
+                        }
+                    }
+
+                    // تشغيل الدالة عند تحميل الصفحة
+                    handleSidebarOnMobile();
+
+                    // تشغيل الدالة عند تغيير حجم الشاشة (في حالة الـ Orientation change)
+                    $(window).resize(function () {
+                        handleSidebarOnMobile();
+                    });
+                });
+        </script>
+    <!-- Bootstrap 4 rtl -->
+    <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"></script>
+    ###
+    <!-- ChartJS -->
+    <script src="~/Dashboard/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/Dashboard/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/Dashboard/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/Dashboard/plugins/jqvmap/maps/jquery.vmap.world.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/Dashboard/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/Dashboard/plugins/moment/moment.min.js"></script>
+    <script src="~/Dashboard/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/Dashboard/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/Dashboard/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/Dashboard/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- DataTables -->
     <script src="~/Dashboard/plugins/datatables/jquery.dataTables.js"></script>
     <script src="~/Dashboard/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/Dashboard/dist/js/adminlte.min.js"></script>
+    
     
     @await RenderSectionAsync("Scripts", required: false)
 </body>

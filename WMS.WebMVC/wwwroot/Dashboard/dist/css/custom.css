@@ -107,3 +107,122 @@ input[type=number] {
         margin-right: 0;
     }
 }
+
+/*الجزء الخاص بتحسين شكل الجدول في الموبيل بشكل كارد */
+@media (max-width: 767.98px) {
+
+
+
+    #example1 {
+        border: none !important;
+    }
+    .card-body {
+        padding: 12px !important; /* عشان الكروت تاخد عرض الشاشة المرتاح */
+        border: none !important;
+    }
+    /* 1. إجبار الجدول وكل محتوياته على تجاهل حسابات DataTable */
+    .table-responsive-cards table,
+    .table-responsive-cards tbody,
+    .table-responsive-cards tr,
+    .table-responsive-cards td {
+        display: block !important;
+        width: 100% !important; /* إلغاء الـ width اللي DataTable بتبعتوا */
+        box-sizing: border-box !important;
+    }
+
+    /* 2. إخفاء الهيدر تماماً */
+    .table-responsive-cards thead {
+        display: none !important;
+    }
+
+    /* 3. تنسيق الكارت */
+    .table-responsive-cards tr {
+        margin-bottom: 25px !important;
+        border-radius: 12px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08) !important;
+        border: 1px solid #eee !important;
+        background: #fff !important;
+        padding: 10px 0 !important;
+    }
+
+    /* 4. توزيع العنوان والقيمة (Flexbox مع إجبار) */
+    .table-responsive-cards td {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        padding: 12px 15px !important;
+        border: none !important;
+        border-bottom: 1px solid #f8f9fa !important;
+        min-height: 45px !important; /* ضمان مساحة كافية */
+    }
+
+        /* 5. تنسيق اسم العمود (Label) */
+        .table-responsive-cards td:before {
+            content: attr(data-label) !important;
+            font-weight: 700 !important;
+            color: #042C63 !important;
+            min-width: 100px !important; /* مساحة محجوزة للعنوان لمنع التداخل */
+            text-align: right !important;
+            flex-shrink: 0 !important; /* يمنع العنوان إنه يتضغط */
+        }
+
+    /* 6. تنسيق القيمة */
+    .table-responsive-cards td {
+        text-align: left !important;
+        word-break: break-word !important; /* لو النص طويل ينزل سطر جديد */
+    }
+
+        /* 7. زر الإجراءات في الموبايل */
+        .table-responsive-cards td[data-label="الإجراءات"] {
+            justify-content: center !important;
+            background: #fafafa !important;
+        }
+
+            .table-responsive-cards td[data-label="الإجراءات"]:before {
+                display: none !important;
+            }
+
+    /* 2. جعل البحث وعدد المدخلات في سطر واحد أو تحت بعض بشكل منسق */
+    .dataTables_length,
+    .dataTables_filter {
+        text-align: center !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+        /* تحسين خانة البحث */
+        .dataTables_filter input {
+            width: 80% !important; /* تقصير الخانة شوية */
+            display: inline-block !important;
+            margin-right: 5px !important;
+            border-radius: 8px !important;
+            border: 1px solid #ddd !important;
+        }
+
+    /* 3. تنسيق معلومات الجدول (Showing 1 to 5...) */
+    .dataTables_info {
+        text-align: center !important;
+        font-size: 0.85rem !important;
+        color: #666 !important;
+        margin: 10px 0 !important;
+        order: 10; /* نقلها لأسفل الجدول */
+    }
+
+    /* 4. تنسيق أزرار الترقيم (Pagination) */
+    .dataTables_paginate {
+        text-align: center !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        margin-top: 10px !important;
+        order: 11; /* بعد الـ Info */
+    }
+
+        /* تصغير أزرار الترقيم لتناسب الموبايل */
+        .dataTables_paginate .paginate_button {
+            padding: 5px 10px !important;
+            margin: 2px !important;
+            font-size: 0.8rem !important;
+            border-radius: 5px !important;
+        }
+}
