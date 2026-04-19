@@ -22,7 +22,7 @@ namespace WMS.WebMVC.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var Warehouses = _unitOfWork.Warehouse.GetAll();
+            var Warehouses = _unitOfWork.Warehouse.GetAll(IncludeWord: "Branch");
 
             var usersDict = _unitOfWork.User.GetAll().ToDictionary(u => u.Id, u => u.UserName);
 
