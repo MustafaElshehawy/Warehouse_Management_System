@@ -129,53 +129,58 @@ namespace WMS.WebMVC.Areas.Admin.Controllers
             };
             return View(productUnitCreateVM);
         }
-        [HttpGet]
-        public IActionResult Update(int id)
-        {
-            var productUnit = _unitOfWork.ProductUnit.GetFirstOrDefault(u => u.Id == id, IncludeWord: "ChildUnit");
-            if (productUnit == null) return NotFound();
+        //[HttpGet]
+        //public IActionResult Update(int id)
+        //{
+        //    var productUnit = _unitOfWork.ProductUnit.GetFirstOrDefault(u => u.Id == id, IncludeWord: "ChildUnit");
+        //    if (productUnit == null) return NotFound();
 
-            // بنجيب المنتج عشان نعرف سعر الوحدة الصغرى الحالية كام
-            var product = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == productUnit.ProductId);
+        //    // بنجيب المنتج عشان نعرف سعر الوحدة الصغرى الحالية كام
+        //    var product = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == productUnit.ProductId);
 
-            ProductUnitCreateVM vm = new()
-            {
-                ProductUnit = productUnit,
-                ProductList = _unitOfWork.Product.GetAll().Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                }),
-                ParentUnitList = _unitOfWork.Unit.GetAll().Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                }),
-                // هنا بنملاها بالوحدة الصغرى المسجلة حالياً عشان تظهر لليوزر
-                ChildUnitList = new List<SelectListItem> {
-            new SelectListItem { Text = productUnit.ChildUnit.Name, Value = productUnit.ChildUnitId.ToString() }
-        }
-            };
+        //    ProductUnitCreateVM vm = new()
+        //    {
+        //        ProductUnit = productUnit,
+        //        ProductList = _unitOfWork.Product.GetAll().Select(u => new SelectListItem
+        //        {
+        //            Text = u.Name,
+        //            Value = u.Id.ToString()
+        //        }),
+        //        ParentUnitList = _unitOfWork.Unit.GetAll().Select(u => new SelectListItem
+        //        {
+        //            Text = u.Name,
+        //            Value = u.Id.ToString()
+        //        }),
+        //        // هنا بنملاها بالوحدة الصغرى المسجلة حالياً عشان تظهر لليوزر
+        //        ChildUnitList = _unitOfWork.ProductUnit.GetAll(u => u.Id == id, IncludeWord: "ChildUnit").Select(pu=>new SelectListItem { 
+        //            Text=pu.ChildUnit.Name,
+        //            Value=pu.ChildUnitId.ToString(),
+        //            Selected = true
 
-            return View(vm);
-        }
+        //        })
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Update(ProductUnitCreateVM vm)
-        {
-            var claimIdentity = (ClaimsIdentity)User.Identity;
-            var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.ProductUnit.Update(vm.ProductUnit,userId);
-                _unitOfWork.Complete();
-                TempData["message"] = "تم تحديث الوحدة بنجاح";
-                return RedirectToAction("Index");
-            }
+
+        //    };
+
+        //    return View(vm);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Update(ProductUnitCreateVM vm)
+        //{
+        //    var claimIdentity = (ClaimsIdentity)User.Identity;
+        //    var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+        //    if (ModelState.IsValid)
+        //    {
+        //        _unitOfWork.ProductUnit.Update(vm.ProductUnit,userId);
+        //        _unitOfWork.Complete();
+        //        TempData["message"] = "تم تحديث الوحدة بنجاح";
+        //        return RedirectToAction("Index");
+        //    }
            
-            return View(vm);
-        }
+        //    return View(vm);
+        //}
 
     }
 }

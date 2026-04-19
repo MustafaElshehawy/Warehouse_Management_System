@@ -68,7 +68,7 @@
         });
                     $(document).ready(function () {
             var currentChildPrice = 0; // متغير هنخزن فيه سعر الوحدة اللي اليوزر اختارها
-
+            var initialChildUnitId = '@Model.ProductUnit.ChildUnitId';
             $('#productId').change(function () {
                 var selectedProductId = $(this).val();
                 var childUnitSelect = $('#childUnitId');
@@ -82,6 +82,7 @@
                         success: function (data) {
                             childUnitSelect.empty().append('<option disabled selected>-- اختر الوحدة الصغرى --</option>');
                             $.each(data, function (i, unit) {
+                                var isSelected = (unit.id == initialChildUnitId) ? 'selected' : '';
                                 // بنخزن السعر في data-price عشان نعرفه لما نختار الوحدة
                                 childUnitSelect.append('<option value="' + unit.id + '" data-price="' + unit.price + '">' + unit.name + '</option>');
                             });
