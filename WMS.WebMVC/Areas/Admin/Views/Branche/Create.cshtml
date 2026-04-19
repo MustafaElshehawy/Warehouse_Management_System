@@ -1,0 +1,41 @@
+﻿@model Branche
+@{
+    ViewBag.PageTitle = "إدارة الفروع ";
+    ViewBag.CardTitle = "إضافة فرع جديد ";
+}
+<div class="container mt-3">
+    <form asp-action="Create" method="post">
+       
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"><i class="nav-icon fas fa-font ml-2"></i>الاسم</label>
+            <input asp-for="Name" class="form-control" placeholder="إكتب إسم الفرع" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Address" class="form-label"><i class="nav-icon fas fa-map-marker-alt ml-2"></i>العنوان</label>
+            <input asp-for="Address" class="form-control" placeholder="إكتب عنوان الفرع" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-custom px-5">إضافة الفرع</button>
+            <a asp-action="Index" class="btn btn-warning">الرجوع للقائمة</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $('#example1').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/ar.json"
+            },
+        });
+    </script>
+}

@@ -51,6 +51,8 @@ namespace WMS.Infrastructure.Context
 
         public DbSet<ProductUnit> ProductUnits { get; set; }
 
+        public DbSet<Branche> Branches { get; set; }
+
     }
 
 }
