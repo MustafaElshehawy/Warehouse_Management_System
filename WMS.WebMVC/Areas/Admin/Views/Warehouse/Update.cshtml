@@ -1,0 +1,47 @@
+﻿@model WarehouseVM
+@{
+    ViewBag.PageTitle = "إدارة المخازن";
+    ViewBag.CardTitle = "تعديل بيانات المخزن";
+}
+<div class="container mt-3">
+    <form asp-action="Update" method="post">
+        <div class="mb-3">
+            <input hidden asp-for="Warehouse.Id" />
+            <label asp-for="Warehouse.Name" class="form-label"><i class="nav-icon fas fa-font ml-2"></i>الاسم</label>
+            <input asp-for="Warehouse.Name" class="form-control" placeholder="إكتب إسم المخزن" />
+            <span asp-validation-for="Warehouse.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Warehouse.Address" class="form-label"><i class="nav-icon fas fa-map-marker-alt ml-2"></i>العنوان</label>
+            <input asp-for="Warehouse.Address" class="form-control" placeholder="إكتب عنوان المخزن" />
+            <span asp-validation-for="Warehouse.Address" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Warehouse.BranchId" class="form-label fw-bold"><i class="nav-icon fas fa-map-marked-alt ml-2"></i>إختر الفرع</label>
+            <select asp-for="Warehouse.BranchId" class="custom-select" asp-items="Model.BrancheList">
+                <option disabled selected>-- اختر الفرع --</option>
+            </select>
+            <span asp-validation-for="Warehouse.BranchId" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-custom px-5">إضافة</button>
+            <a asp-action="Index" class="btn btn-warning">الرجوع للقائمة</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $('#example1').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/ar.json"
+            },
+        });
+    </script>
+}

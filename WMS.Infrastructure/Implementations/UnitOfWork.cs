@@ -20,6 +20,8 @@ namespace WMS.Infrastructure.Implementations
 
         public IImageRepository Image { get; private set; }
         public IBrancheRepository Branche { get; private set; }
+
+        public IWarehouseRepository Warehouse { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -30,6 +32,7 @@ namespace WMS.Infrastructure.Implementations
             Product = new ProductRepository(context);
             Image = new ImageRepository(context);
             Branche=new BrancheRepository(context);
+            Warehouse=new WarehouseRepository(context);
         }
 
 

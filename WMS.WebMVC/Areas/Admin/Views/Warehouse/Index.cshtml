@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WarehouseVM>
+
+@{
+    ViewBag.PageTitle = "إدارة المخازن ";
+    ViewBag.CardTitle = "كل المخازن ";
+}
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped ">
+                        <thead>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>العنوان</th>
+                                <th>الفرع</th>
+                                <th>وقت الإضافة </th>
+                                <th>الإضافة بواسطة </th>
+                                <th>وقت التعديل </th>
+                                <th>التعديل بواسطة </th>
+                                <th>الإجراءات  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Warehouse.Name
+                                    </td>
+                                    <td>
+                                        @item.Warehouse.Address
+                                    </td>
+                                    <td>
+                                        @item.Warehouse.BranchId
+                                    </td>
+                                    <td>
+                                        @item.Warehouse.CreatedAt.ToString("yyyy/MM/dd")
+                                    </td>
+                                    <td>
+                                        @item.CreatedByName
+                                    </td>
+                                    <td>
+                                        @item.Warehouse.ModifiedAt
+                                    </td>
+                                    <td>
+                                        @item.ModifiedByName
+                                    </td>
+                                    <td>
+
+                                        <a asp-action="Update" asp-controller="Warehouse" asp-route-id="@item.Warehouse.Id" class="btn btn-warning"><i class="nav-icon 	fas fa-edit">تعديل  </i></a>
+                                    </td>
+
+                                </tr>
+
+
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+@section Scripts {
+    <script>
+        $('#example1').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/ar.json"
+            },
+        });
+    </script>
+}

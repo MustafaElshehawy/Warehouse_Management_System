@@ -53,6 +53,8 @@ namespace WMS.Infrastructure.Context
 
         public DbSet<Branche> Branches { get; set; }
 
+        public DbSet<Warehouse> Warehouses { get; set; }
+
     }
 
 }
