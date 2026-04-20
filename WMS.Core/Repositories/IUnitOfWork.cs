@@ -21,6 +21,10 @@ namespace WMS.Core.Repositories
         IBrancheRepository Branche { get; }
 
         IWarehouseRepository Warehouse { get; }
+
+        IStockRepository Stock { get; }
+
+        IStockMovementRepository StockMovement { get; }
         int Complete();
     }
 }

@@ -37,6 +37,9 @@ namespace WMS.Infrastructure.Context
                 .WithMany()
                 .HasForeignKey(p => p.SmallestUnitId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Stock>()
+                .HasIndex(s => new { s.WarehouseId, s.ProductId, s.UnitId }).IsUnique();//ليه مش HasKey ===> لان لو انت ربط  هتاخد 3 اعمده ودا مش حلو   --(aالحل استخدام index ضمنت المخزن بتاعك مفهوش تكرارa) 
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -54,6 +57,10 @@ namespace WMS.Infrastructure.Context
         public DbSet<Branche> Branches { get; set; }
 
         public DbSet<Warehouse> Warehouses { get; set; }
+
+        public DbSet<Stock> Stocks { get; set; }
+
+        public DbSet<StockMovement> StockMovements { get; set; }
 
     }
 
