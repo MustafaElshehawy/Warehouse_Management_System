@@ -11,6 +11,7 @@
 
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <div class="table-responsive-cards">
                     <table id="example1" class="table table-bordered table-striped ">
                         <thead>
                             <tr>
@@ -19,29 +20,29 @@
                                 <th>الإضافة بواسطة </th>
                                 <th>وقت التعديل </th>
                                 <th>التعديل بواسطة </th>
-                                <th>الإجراءات  </th>
+                                <th>الاجراءات  </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>
+                                        <td data-label="الوحدة الرئسية">
                                         @item.Unit.Name
                                     </td>
-                                    <td>
+                                        <td data-label="وقت الإضافة">
                                         @item.Unit.CreatedAt
                                     </td>
-                                    <td>
+                                        <td data-label="الإضافة بواسطة">
                                         @item.CreatedByName
                                     </td>
-                                    <td>
+                                        <td data-label="وقت التعديل">
                                         @item.Unit.ModifiedAt
                                     </td>
-                                    <td>
+                                        <td data-label="التعديل بواسطة">
                                         @item.CreatedByName
                                     </td>
-                                    <td>
+                                        <td data-label="الاجراءات">
 
                                         <a asp-action="Update" asp-controller="Unit" asp-route-id="@item.Unit.Id" class="btn btn-warning"><i class="nav-icon 	fas fa-edit"></i></a>
                                         <a asp-action="Delete" asp-controller="Unit" asp-route-id="@item.Unit.Id" class="btn btn-danger"><i class="nav-icon 	fas fa-trash"></i></a>
@@ -54,6 +55,7 @@
                         </tbody>
 
                     </table>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>

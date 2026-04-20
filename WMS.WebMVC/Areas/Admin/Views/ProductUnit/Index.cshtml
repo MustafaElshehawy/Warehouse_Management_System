@@ -11,6 +11,7 @@
 
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <div class="table-responsive-cards">
                     <table id="example1" class="table table-bordered table-striped ">
                         <thead>
                             <tr>
@@ -30,25 +31,25 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>
+                                    <td data-label="المنتج">
                                         @item.ProductUnit.Product.Name
                                     </td>
-                                    <td>
+                                    <td data-label="الوحدة الكبيره">
                                         @item.ProductUnit.ParentUnit.Name
                                     </td>
-                                    <td>
+                                    <td  data-label="الكمية">
                                         @item.ProductUnit.UnitFactor
                                     </td>
-                                    <td>
+                                    <td data-label="الوحدة الصغيره">
                                         @item.ProductUnit.ChildUnit.Name
                                     </td>
-                                    <td>
+                                    <td data-label="سعر">
                                         @item.ProductUnit.ParentUnitPrice
                                     </td>
-                                    <td>
+                                    <td  data-label="وقت الإضافة">
                                         @item.ProductUnit.CreatedAt.ToString("yyyy/MM/dd")
                                     </td>
-                                    <td>
+                                    <td  data-label="الإضافة بواسطة">
                                         @item.CreatedByName
                                     </td>
                                     @* <td>

@@ -12,6 +12,7 @@
                 
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <div class="table-responsive-cards">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -25,16 +26,16 @@
                             @foreach(var item in Model)
                             {
                                 <tr>
-                                    <td>
+                                        <td data-label="الاسم">
                                         @item.UserName
                                      </td>
-                                    <td>
+                                        <td data-label="البريد الالكتروني">
                                         @item.Email
                                     </td>
-                                    <td>
+                                        <td data-label="رقم الهاتف">
                                         @item.PhoneNumber
-                                    </td>
-                                    <td>
+                                    </td >
+                                        <td data-label="الاجراءات">
                                         @if (item.LockoutEnd == null || item.LockoutEnd < DateTime.Now)
                                         {
 
@@ -56,6 +57,7 @@
                         </tbody>
                        
                     </table>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>
