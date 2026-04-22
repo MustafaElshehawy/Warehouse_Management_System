@@ -1,6 +1,0 @@
-@WMS.WebAPI_HostAddress = http://localhost:5098
-
-GET {{WMS.WebAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
