@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 using WMS.Core.Entities;
 using WMS.Infrastructure.Context;
@@ -19,25 +20,70 @@ namespace WMS.WebAPI
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+            //builder.Services.AddOpenApi();
+            builder.Services.AddEndpointsApiExplorer();
+
+            #region TokenButton
+
             builder.Services.AddOpenApi();
-            
+            builder.Services.AddSwaggerGen(swagger =>
+            {
+                // تعريف النسخة والعنوان
+                swagger.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "WMS API - .NET 10 Version",
+                    Description = "Warehouse Management System API"
+                });
+
+                // تعريف الـ JWT Security
+                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter your JWT token directly in the text field"
+                });
+
+                // ربط الـ Security بالطلبات (المكان اللي كان ضارب عندك)
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+            });
+            #endregion
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
                 options.User.RequireUniqueEmail = true;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            builder.Services.AddAuthentication(options => {
+            builder.Services.AddAuthentication(options =>
+            {
                 //Check JWT Token
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 //[authrize]
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            }).AddJwtBearer(options => {//verified Token
+            }).AddJwtBearer(options =>
+            {//verified Token
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters()
@@ -57,9 +103,11 @@ namespace WMS.WebAPI
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
-                app.UseSwaggerUI(options => {
-                    options.SwaggerEndpoint("/openapi/v1.json", "open Api v1");
+
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                 });
             }
 
