@@ -5,8 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using WMS.Application.Services;
 using WMS.Core.Entities;
+using WMS.Core.Repositories;
 using WMS.Infrastructure.Context;
+using WMS.Infrastructure.DbInitializar;
+using WMS.Infrastructure.Implementations;
 
 namespace WMS.WebAPI
 {
@@ -98,6 +102,8 @@ namespace WMS.WebAPI
 
             });
 
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IStockService, StockService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -107,7 +113,7 @@ namespace WMS.WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v2");
                 });
             }
 

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WMS.Core.Entities;
 
 namespace WMS.Infrastructure.Context
@@ -10,26 +7,26 @@ namespace WMS.Infrastructure.Context
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        { 
-            
+        {
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ProductUnit>()
                 .HasOne(pu => pu.ChildUnit)
                 .WithMany()
                 .HasForeignKey(pu => pu.ChildUnitId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
 
 
             modelBuilder.Entity<ProductUnit>()
                 .HasOne(pu => pu.ParentUnit)
                 .WithMany()
                 .HasForeignKey(pu => pu.ParentUnitId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
 
 
             modelBuilder.Entity<Product>()
@@ -39,7 +36,25 @@ namespace WMS.Infrastructure.Context
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Stock>()
-                .HasIndex(s => new { s.WarehouseId, s.ProductId, s.UnitId }).IsUnique();//ليه مش HasKey ===> لان لو انت ربط  هتاخد 3 اعمده ودا مش حلو   --(aالحل استخدام index ضمنت المخزن بتاعك مفهوش تكرارa) 
+                .HasIndex(s => new { s.WarehouseId, s.ProductId, s.UnitId }).IsUnique();//ليه مش HasKey ===> لان لو انت ربط  هتاخد 3 اعمده ودا مش حلو   --(aالحل استخدام index ضمنت المخزن بتاعك مفهوش تكرارa)
+            modelBuilder.Entity<PurchasesHeader>()
+                .HasOne(p => p.Warehouse)
+                .WithMany()
+                .HasForeignKey(p => p.WarehouseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PurchasesHeader>()
+                .HasOne(p => p.Branche)  
+                .WithMany()
+                .HasForeignKey(p => p.BrancheId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<PurchasesDetails>()
+                .HasOne(pd => pd.Purchase)
+                .WithMany()
+                .HasForeignKey(pd => pd.PurchaseId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -50,7 +65,7 @@ namespace WMS.Infrastructure.Context
 
         public DbSet<Image> Images { get; set; }
 
-        public DbSet<Product>Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public DbSet<ProductUnit> ProductUnits { get; set; }
 
@@ -61,6 +76,10 @@ namespace WMS.Infrastructure.Context
         public DbSet<Stock> Stocks { get; set; }
 
         public DbSet<StockMovement> StockMovements { get; set; }
+
+        public DbSet<PurchasesHeader> PurchasesHeaders { get; set; }
+
+        public DbSet<PurchasesDetails> PurchasesDetails { get; set; }
 
     }
 

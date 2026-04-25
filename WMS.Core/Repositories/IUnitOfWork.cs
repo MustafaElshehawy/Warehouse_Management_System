@@ -25,6 +25,10 @@ namespace WMS.Core.Repositories
         IStockRepository Stock { get; }
 
         IStockMovementRepository StockMovement { get; }
+
+
+        IPurchaseDetailsRepository PurchaseDetails { get; }
+        IPurchaseHeaderRepository PurchaseHeader { get; }
         int Complete();
     }
 }

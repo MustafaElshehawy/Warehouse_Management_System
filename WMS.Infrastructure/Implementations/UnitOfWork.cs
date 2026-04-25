@@ -26,6 +26,10 @@ namespace WMS.Infrastructure.Implementations
         public IStockRepository Stock { get; private set; }
 
         public IStockMovementRepository StockMovement { get; private set; }
+
+        public IPurchaseHeaderRepository PurchaseHeader{ get; private set; }
+        public IPurchaseDetailsRepository PurchaseDetails{ get; private set; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -39,6 +43,8 @@ namespace WMS.Infrastructure.Implementations
             Warehouse=new WarehouseRepository(context);
             Stock=new StockRepository(context);
             StockMovement=new StockMovementRepository(context);
+            PurchaseHeader=new PurchaseHeaderRepository(context);
+            PurchaseDetails=new PurchaseDetailsRepository(context);
         }
 
 
