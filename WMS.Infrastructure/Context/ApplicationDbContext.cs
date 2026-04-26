@@ -52,7 +52,7 @@ namespace WMS.Infrastructure.Context
 
             modelBuilder.Entity<PurchasesDetails>()
                 .HasOne(pd => pd.Purchase)
-                .WithMany()
+                .WithMany(ph => ph.Items)
                 .HasForeignKey(pd => pd.PurchaseId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

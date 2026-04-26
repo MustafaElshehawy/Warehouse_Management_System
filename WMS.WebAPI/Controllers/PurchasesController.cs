@@ -95,5 +95,43 @@ namespace WMS.WebAPI.Controllers
             });
 
         }
+        [HttpGet("GetAllPurchases")]
+
+        public IActionResult GetAllPurchases()
+        {
+            var purchases = _unitOfWork.PurchaseHeader.GetAll(IncludeWord: "Branche,Warehouse,Items.Product,Items.Unit");
+
+            var response = purchases.Select(p => new PurchasesResponseDTO
+            {
+                Id = p.Id,
+                SupplierName = p.SupplierName,
+                BranchName = p.Branche.Name,
+                WarehouseName = p.Warehouse.Name,
+                TotalCost = p.TotalCost,
+                CreatedAt = p.CreatedAt,
+                Items = p.Items.Select(i => new PurchaseItemResponseDTO
+                {
+                    ProductName = i.Product.Name,
+                    Quantity=i.Quantity,
+                    UnitPrice=i.UnitPrice,
+                    UnitName=i.Unit.Name,
+                    ExtraCost=i.ExtraCost
+
+
+
+                }).ToList(),
+
+
+            }).ToList();
+
+            return Ok(new
+            {
+                status = true,
+                message = "تم جلب البيانات بنجاح",
+                count = purchases.Count(),
+                data = response
+            });
+
+        }
     }
 }

@@ -8,8 +8,8 @@ namespace WMS.Core.Enums
     {
         Purchase = 1,
         Sale = 2,
-        ReturnIn = 3,  // مرتجع مبيعات
-        ReturnOut = 4, // مرتجع مشتريات
-        Transfer = 5,  // تحويل بين مخازن
+        ReturnSale = 3,  // مرتجع مبيعات++
+        ReturnPurchase = 4, // مرتجع مشتريات--
+        Transfer = 5,  // تحويل بين مخازن +-
     }
 }

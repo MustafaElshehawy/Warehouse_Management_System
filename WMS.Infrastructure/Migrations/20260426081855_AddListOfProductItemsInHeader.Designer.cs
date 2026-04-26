@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WMS.Infrastructure.Context;
 
@@ -11,9 +12,11 @@ using WMS.Infrastructure.Context;
 namespace WMS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260426081855_AddListOfProductItemsInHeader")]
+    partial class AddListOfProductItemsInHeader
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -451,6 +454,9 @@ namespace WMS.Infrastructure.Migrations
                     b.Property<int>("PurchaseId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PurchasesHeaderId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
@@ -468,6 +474,8 @@ namespace WMS.Infrastructure.Migrations
                     b.HasIndex("ProductId");
 
                     b.HasIndex("PurchaseId");
+
+                    b.HasIndex("PurchasesHeaderId");
 
                     b.HasIndex("UnitId");
 
@@ -815,10 +823,14 @@ namespace WMS.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("WMS.Core.Entities.PurchasesHeader", "Purchase")
-                        .WithMany("Items")
+                        .WithMany()
                         .HasForeignKey("PurchaseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("WMS.Core.Entities.PurchasesHeader", null)
+                        .WithMany("Items")
+                        .HasForeignKey("PurchasesHeaderId");
 
                     b.HasOne("WMS.Core.Entities.Unit", "Unit")
                         .WithMany()

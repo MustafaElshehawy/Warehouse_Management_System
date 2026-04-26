@@ -17,5 +17,8 @@ namespace WMS.Core.Entities
         public Warehouse Warehouse { get; set; }
 
         public decimal TotalCost { get; set; }
+
+        //to return each header with  product
+        public ICollection<PurchasesDetails> Items { get; set; } = new HashSet<PurchasesDetails>();
     }
 }
