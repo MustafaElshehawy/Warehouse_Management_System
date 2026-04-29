@@ -57,7 +57,7 @@ namespace WMS.WebAPI.Controllers
                 };
                 _unitOfWork.PurchaseDetails.Add(detail);
 
-                // أهم خطوة: نستخدم الـ StockService اللي إنت عملتها
+                
                 var stockResult=_stockService.ProcessMovement(new ProccessMovementDTO
                 {
                     ProductId = item.ProductId,

@@ -55,6 +55,17 @@ namespace WMS.Infrastructure.Context
                 .WithMany(ph => ph.Items)
                 .HasForeignKey(pd => pd.PurchaseId)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PurchasesReturnHeader>()
+                .HasOne(ph => ph.PurchasesHeader)
+                .WithMany() 
+                .HasForeignKey(ph => ph.PurchaseHeaderId)
+                .OnDelete(DeleteBehavior.Restrict); 
+
+            modelBuilder.Entity<PurchasesReturnDetails>()
+                .HasOne(pd => pd.PurchasesReturnHeader)
+                .WithMany(ph => ph.Items)
+                .HasForeignKey(pd => pd.PurchasesReturnHeaderId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -80,6 +91,10 @@ namespace WMS.Infrastructure.Context
         public DbSet<PurchasesHeader> PurchasesHeaders { get; set; }
 
         public DbSet<PurchasesDetails> PurchasesDetails { get; set; }
+
+        public DbSet<PurchasesReturnHeader> PurchasesReturnHeaders { get; set; }
+
+        public DbSet<PurchasesReturnDetails> PurchasesReturnDetails { get; set; }
 
     }
 

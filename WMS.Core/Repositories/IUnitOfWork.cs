@@ -29,6 +29,9 @@ namespace WMS.Core.Repositories
 
         IPurchaseDetailsRepository PurchaseDetails { get; }
         IPurchaseHeaderRepository PurchaseHeader { get; }
+
+        IPurchaseReturnHeaderRepository PurchaseReturnHeader { get; }
+        IPurchaseReturnDetailsRepository PurchaseReturnDetails { get; }
         int Complete();
     }
 }

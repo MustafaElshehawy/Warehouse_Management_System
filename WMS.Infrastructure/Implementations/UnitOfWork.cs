@@ -30,6 +30,10 @@ namespace WMS.Infrastructure.Implementations
         public IPurchaseHeaderRepository PurchaseHeader{ get; private set; }
         public IPurchaseDetailsRepository PurchaseDetails{ get; private set; }
 
+        public IPurchaseReturnHeaderRepository PurchaseReturnHeader { get; private set; }
+
+        public IPurchaseReturnDetailsRepository PurchaseReturnDetails{ get; private set; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -45,6 +49,8 @@ namespace WMS.Infrastructure.Implementations
             StockMovement=new StockMovementRepository(context);
             PurchaseHeader=new PurchaseHeaderRepository(context);
             PurchaseDetails=new PurchaseDetailsRepository(context);
+            PurchaseReturnHeader=new PurchaseReturnHeaderRepository(context);
+            PurchaseReturnDetails=new PurchaseReturnDetailsRepository(context);
         }
 
 
