@@ -57,7 +57,7 @@ namespace WMS.WebMVC
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{Area=Admin}/{controller=User}/{action=Index}/{id?}")
+                pattern: "{Area=Admin}/{controller=Dashboard}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();
