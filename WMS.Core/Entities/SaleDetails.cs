@@ -17,6 +17,7 @@ namespace WMS.Core.Entities
         public int UnitId { get; set; }
         public Unit Unit { get; set; }
 
+        public decimal Quentity { get; set; }
         public decimal CostAtTime { get; set; }
         public decimal NetProfit { get; set; }
 
