@@ -66,6 +66,36 @@ namespace WMS.Infrastructure.Context
                 .WithMany(ph => ph.Items)
                 .HasForeignKey(pd => pd.PurchasesReturnHeaderId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<SaleDetails>(entity => { 
+
+                entity.HasOne(sd => sd.SaleHeader)
+                 .WithMany(sd => sd.Items)
+                 .HasForeignKey(sd => sd.SaleHeaderId)
+                 .OnDelete(DeleteBehavior.Cascade);//علشان امسح التفاصيل لو مسحت الفاتوره 
+
+                entity.HasOne(sd => sd.Product)
+                    .WithMany()
+                    .HasForeignKey(sd => sd.ProductId)
+                    .OnDelete(DeleteBehavior.Restrict);//منعت  احذف المنتح لو له فاتوره 
+            });
+
+            modelBuilder.Entity<SaleHeader>(entity => {
+
+                entity.HasOne(sh => sh.Branche)
+                .WithMany()
+                .HasForeignKey(sh => sh.BrancheId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(sh => sh.Warehouse)
+                .WithMany()
+                .HasForeignKey(sh => sh.WarehouseId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            });
+
+                 
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -95,6 +125,9 @@ namespace WMS.Infrastructure.Context
         public DbSet<PurchasesReturnHeader> PurchasesReturnHeaders { get; set; }
 
         public DbSet<PurchasesReturnDetails> PurchasesReturnDetails { get; set; }
+
+        public DbSet<SaleHeader> SaleHeaders { get; set; }
+        public DbSet<SaleDetails> SaleDetails { get; set; }
 
     }
 
