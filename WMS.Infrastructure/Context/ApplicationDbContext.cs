@@ -95,7 +95,19 @@ namespace WMS.Infrastructure.Context
             
             });
 
-                 
+            modelBuilder.Entity<SaleReturnHeader>()
+                .HasOne(sh => sh.SaleHeader)
+                .WithMany()
+                .HasForeignKey(sh => sh.SaleHeaderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SaleReturnDetails>()
+                .HasOne(sd => sd.SaleReturnHeader)
+                .WithMany(sh => sh.Items)
+                .HasForeignKey(sd => sd.SaleReturnHeaderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -128,6 +140,10 @@ namespace WMS.Infrastructure.Context
 
         public DbSet<SaleHeader> SaleHeaders { get; set; }
         public DbSet<SaleDetails> SaleDetails { get; set; }
+
+        public DbSet<SaleReturnHeader> SaleReturnHeaders { get; set; }
+
+        public DbSet<SaleReturnDetails> SaleReturnDetails { get; set; }
 
     }
 

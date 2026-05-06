@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 using System.Security.Claims;
 using WMS.Application.Dto;
 using WMS.Application.Services;
@@ -11,6 +13,8 @@ namespace WMS.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = SD.CustomerRole)]
+
     public class PurchasesReturnController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
