@@ -35,6 +35,9 @@ namespace WMS.Core.Repositories
 
         ISaleHeaderRepository SaleHeader { get; }
         ISaleDetailsRepository SaleDetails { get; }
+
+        ISaleReturnHeaderRepository SaleReturnHeader { get; }
+        ISaleReturnDetailsRepository SaleReturnDetails { get; }
         int Complete();
     }
 }

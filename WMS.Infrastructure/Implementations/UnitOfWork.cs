@@ -38,6 +38,9 @@ namespace WMS.Infrastructure.Implementations
 
         public ISaleDetailsRepository SaleDetails{ get; private set; }
 
+        public ISaleReturnHeaderRepository SaleReturnHeader { get;private set; }
+        public ISaleReturnDetailsRepository SaleReturnDetails { get;private set; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -57,6 +60,8 @@ namespace WMS.Infrastructure.Implementations
             PurchaseReturnDetails=new PurchaseReturnDetailsRepository(context);
             SaleHeader =new SaleHeaderRepository(context);
             SaleDetails=new SaleDetailsRepository(context);
+            SaleReturnHeader=new SaleReturnHeaderRepository(context);
+            SaleReturnDetails=new SaleReturnDetailsRepository(context);
             
         }
 
