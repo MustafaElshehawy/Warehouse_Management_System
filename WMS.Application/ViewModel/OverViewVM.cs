@@ -15,7 +15,10 @@ namespace WMS.Application.ViewModel
 
         public int NumberNewUsers { get; set; }
 
-        
+        //Target section 2 -->Monthly
+        public int NumberOfSalesHeader { get; set; }
+        public decimal TotalSaleNetProfit { get; set; }
+        public decimal TotalRevenue { get; set; }
 
 
 

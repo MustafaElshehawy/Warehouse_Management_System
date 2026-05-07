@@ -28,10 +28,17 @@ namespace WMS.WebMVC.Areas.Admin.Controllers
 
             var overView =new OverViewVM
             {
+                //Quick 
                 TotalSalesNumber =_unitOfWork.SaleHeader.GetAll().Count(),
                 TotalBranchNumber=_unitOfWork.Branche.GetAll().Count(),
                 TotalDailyProfit=_unitOfWork.SaleDetails.GetAll(sd=>sd.CreatedAt >=startToday && sd.CreatedAt <= startTomorrow).Sum(sd=>sd.NetProfit * sd.Quentity),
-                NumberNewUsers=_unitOfWork.User.GetAll().Count()
+                NumberNewUsers=_unitOfWork.User.GetAll().Count(),
+
+                //Target
+                NumberOfSalesHeader=_unitOfWork.SaleHeader.GetAll(sh=>sh.CreatedAt >= startMonth && sh.CreatedAt < endMonth).Count(),
+                TotalSaleNetProfit= _unitOfWork.SaleDetails.GetAll(sd => sd.CreatedAt >= startMonth && sd.CreatedAt < endMonth).Sum(sd => sd.NetProfit * sd.Quentity),
+                TotalRevenue =_unitOfWork.SaleDetails.GetAll(sd => sd.CreatedAt >= startMonth && sd.CreatedAt < endMonth).Sum(sd=>sd.CostAtTime)
+
 
             };
             return View(overView);
