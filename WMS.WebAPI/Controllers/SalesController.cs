@@ -91,7 +91,7 @@ namespace WMS.WebAPI.Controllers
             return Ok(new
             {
                 status = true,
-                message = "تم تسجيل المشتريات وتحديث المخزن بنجاح",
+                message = "تم تسجيل المبيعات وتحديث المخزن بنجاح",
                 data = new
                 {
                     purchaseId = header.Id,
