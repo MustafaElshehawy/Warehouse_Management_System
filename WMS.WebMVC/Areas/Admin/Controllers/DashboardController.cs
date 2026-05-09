@@ -26,18 +26,27 @@ namespace WMS.WebMVC.Areas.Admin.Controllers
             var startMonth = new DateTime(now.Year, now.Month, 1);
             var endMonth = startMonth.AddMonths(1);
 
-            var overView =new OverViewVM
+            var overView = new OverViewVM
             {
                 //Quick 
-                TotalSalesNumber =_unitOfWork.SaleHeader.GetAll().Count(),
-                TotalBranchNumber=_unitOfWork.Branche.GetAll().Count(),
-                TotalDailyProfit=_unitOfWork.SaleDetails.GetAll(sd=>sd.CreatedAt >=startToday && sd.CreatedAt <= startTomorrow).Sum(sd=>sd.NetProfit * sd.Quentity),
-                NumberNewUsers=_unitOfWork.User.GetAll().Count(),
+                TotalSalesNumber = _unitOfWork.SaleHeader.GetAll().Count(),
+                TotalBranchNumber = _unitOfWork.Branche.GetAll().Count(),
+                TotalDailyProfit = _unitOfWork.SaleDetails.GetAll(sd => sd.CreatedAt >= startToday && sd.CreatedAt <= startTomorrow).Sum(sd => sd.NetProfit * sd.Quentity),
+                NumberNewUsers = _unitOfWork.User.GetAll().Count(),
 
                 //Target
-                NumberOfSalesHeader=_unitOfWork.SaleHeader.GetAll(sh=>sh.CreatedAt >= startMonth && sh.CreatedAt < endMonth).Count(),
-                TotalSaleNetProfit= _unitOfWork.SaleDetails.GetAll(sd => sd.CreatedAt >= startMonth && sd.CreatedAt < endMonth).Sum(sd => sd.NetProfit * sd.Quentity),
-                TotalRevenue =_unitOfWork.SaleDetails.GetAll(sd => sd.CreatedAt >= startMonth && sd.CreatedAt < endMonth).Sum(sd=>sd.CostAtTime)
+                NumberOfSalesHeader = _unitOfWork.SaleHeader.GetAll(sh => sh.CreatedAt >= startMonth && sh.CreatedAt < endMonth).Count(),
+                TotalSaleNetProfit = _unitOfWork.SaleDetails.GetAll(sd => sd.CreatedAt >= startMonth && sd.CreatedAt < endMonth).Sum(sd => sd.NetProfit * sd.Quentity),
+                TotalRevenue = _unitOfWork.SaleDetails.GetAll(sd => sd.CreatedAt >= startMonth && sd.CreatedAt < endMonth).Sum(sd => sd.CostAtTime),
+
+
+                //WarehouseRequests
+
+
+                //Some nums
+                WarehouseNumber = _unitOfWork.Warehouse.GetAll().Count(),
+                ProductNumberInAllWarehoues = _unitOfWork.Stock.GetAll(s => s.Quantity > 0).Count(),
+                BranchesUnActive = _unitOfWork.Branche.GetAll(b => b.IsActive != false).Count(),
 
 
             };

@@ -21,6 +21,18 @@ namespace WMS.Application.ViewModel
         public decimal TotalRevenue { get; set; }
 
 
+        //WarehouseRequests
+
+
+
+
+        //Some nums
+        public int WarehouseNumber { get; set; }
+        public int ProductNumberInAllWarehoues { get; set; }
+
+        public int BranchesUnActive { get; set; }
+
+
 
 
 

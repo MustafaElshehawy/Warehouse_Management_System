@@ -142,7 +142,7 @@
                 <!-- TABLE: LATEST ORDERS -->
                 <div class="card">
                     <div class="card-header border-transparent">
-                        <h3 class="card-titles">الأودرات الحديثة</h3>
+                        <h3 class="card-titles">حركة المخازن</h3>
 
                        
                     </div>
@@ -152,31 +152,31 @@
                             <table class="table m-0">
                                 <thead>
                                     <tr>
-                                        <th>رقم الطلب</th>
-                                        <th>إسم العميل</th>
+                                        <th>من المخزن</th>
+                                        <th>إلي المخزن</th>
                                         <th>حالة الطلب</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><a href="">OR9842</a></td>
-                                        <td>محمد احمد</td>
-                                        <td><span class="badge badge-success">Shipped</span></td> 
+                                        <td><a href="">مخزن 1</a></td>
+                                        <td>مخزن السعد</td>
+                                        <td><span class="badge badge-success">تمت الموافقه</span></td> 
                                     </tr>
                                     <tr>
-                                        <td><a href="">OR1848</a></td>
-                                        <td>محسن حسن</td>
-                                        <td><span class="badge badge-warning">Pending</span></td>
+                                        <td><a href="">مخزن السعد</a></td>
+                                        <td> مخزن القاهره</td>
+                                        <td><span class="badge badge-warning">قيد الانتظار</span></td>
                                     </tr>
                                     <tr>
-                                        <td><a href="">OR7429</a></td>
-                                        <td>حسن خالد</td>
-                                        <td><span class="badge badge-danger">Delivered</span></td> 
+                                        <td><a href="">مخزن البعبع</a></td>
+                                        <td> مخزن التلت</td>
+                                        <td><span class="badge badge-danger">تم الرفض</span></td> 
                                     </tr>
                                     <tr>
-                                        <td><a href="">OR7429</a></td>
-                                        <td>ماجد السيد</td>
-                                        <td><span class="badge badge-info">Processing</span></td> 
+                                        <td><a href="">مخزن ال12</a></td>
+                                        <td>مخزن السعد</td>
+                                        <td><span class="badge badge-info">جاري النقل</span></td> 
                                     </tr>
                                     
                                 </tbody>
@@ -201,7 +201,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">إجمالي  عدد المخازن</span>
-                        <span class="info-box-number">5,200</span>
+                        <span class="info-box-number">@Model.WarehouseNumber</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -211,7 +211,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">عدد المنتجات في المخازن</span>
-                        <span class="info-box-number">92,050</span>
+                        <span class="info-box-number">@Model.ProductNumberInAllWarehoues</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -221,7 +221,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">مخازن تم تعطيلها</span>
-                        <span class="info-box-number">114,381</span>
+                        <span class="info-box-number">@Model.BranchesUnActive</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
