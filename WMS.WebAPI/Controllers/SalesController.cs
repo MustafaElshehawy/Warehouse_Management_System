@@ -48,31 +48,68 @@ namespace WMS.WebAPI.Controllers
                 var product = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == item.ProductId);
                 if (product == null) return BadRequest($"المنتج {item.ProductId} غير موجود");
 
+                //auto clac price for each unit or supunit
+                decimal sellingPrice = 0;
+                decimal costPrice = product.CostPrice; 
+                decimal factor = 1;
+
+                // check if smallest or sub unit
+                if (item.UnitId == product.SmallestUnitId)
+                {
+                    sellingPrice = product.SellingPrice;
+                }
+                else
+                {
+                    // if sub  fetch sellingprice and factor and costPrice
+                    var productUnit = _unitOfWork.ProductUnit.GetFirstOrDefault(pu => pu.ProductId == item.ProductId && pu.ParentUnitId == item.UnitId);
+                   
+                    if (productUnit != null)
+                    {
+                        sellingPrice = productUnit.ParentUnitPrice;
+                        while (productUnit.ChildUnitId != product.SmallestUnitId)
+                        {
+
+                            factor *= productUnit.UnitFactor;
+                            productUnit = _unitOfWork.ProductUnit.GetFirstOrDefault(pu => pu.ProductId == item.ProductId && pu.ParentUnitId == productUnit.ChildUnitId);
+
+                        }
+
+                        if (productUnit.ChildUnitId == product.SmallestUnitId)
+                        {
+                            factor *= productUnit.UnitFactor;
+                        }
+
+                        costPrice = product.CostPrice * factor;
+
+
+                    }
+                }
+
                 var detail = new SaleDetails
                 {
                     SaleHeaderId = header.Id,
                     ProductId = item.ProductId,
                     UnitId = item.UnitId,
-                    Quentity = item.Quentity,
-                    CostAtTime = product.SellingPrice,
-                    NetProfit = (product.SellingPrice -product.CostPrice)*item.Quentity,
+                    Quentity = factor * item.Quentity,
+                    CostAtTime = sellingPrice,
+                    NetProfit = (sellingPrice - costPrice) *item.Quentity,
                     CreatedBy = userId,
 
                 };
                 _unitOfWork.SaleDetails.Add(detail);
-                totalHeaderCost += (product.SellingPrice * item.Quentity);
+                totalHeaderCost += (sellingPrice * item.Quentity);
 
                 var stockResult = _stockService.ProcessMovement(new ProccessMovementDTO
                 {
                     ProductId = item.ProductId,
                     WarehouseId = dto.WareHouseId,
-                    UnitId = item.UnitId,
-                    Quantity = item.Quentity,
+                    UnitId = product.SmallestUnitId,
+                    Quantity = factor * item.Quentity,
                     InOut = MovementDirection.Out, // بيع يعني خروج
                     ActionType = ActionType.Sale,
                     ReferenceId = header.Id,
                     ReferenceType = "SaleHeader",
-                    CostPrice = product.SellingPrice
+                    CostPrice = sellingPrice
                 }, userId);
                 if (!stockResult)
                 {
