@@ -207,6 +207,23 @@
                                 </li>
                             </ul>
                         </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-boxes"></i>
+                                    <p>
+                                        المخزون
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-controller="Stock" asp-action="Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p> عرض المخزون </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon 	fas fa-map-marked-alt"></i>
@@ -230,6 +247,29 @@
                                 </li>
                             </ul>
                         </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-dolly"></i>
+                                    <p>
+                                        التحركات
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">      
+                                    <li class="nav-item">
+                                        <a asp-controller="ProductRequest" asp-action="Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p> عرض سجل التحركات </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="ProductRequest" asp-action="create" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p> نقل بضاعه</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-clipboard"></i>
